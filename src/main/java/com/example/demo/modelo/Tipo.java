@@ -15,13 +15,11 @@ import lombok.experimental.SuperBuilder;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 
 
-@Document
 public abstract class Tipo implements Serializable{
 	
 	@Id
