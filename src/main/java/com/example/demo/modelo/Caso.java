@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.persistence.Id;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -19,11 +20,13 @@ import lombok.EqualsAndHashCode;
 public class Caso {
 
 	@Id
+	@EqualsAndHashCode.Include
 	private String id;
+
+	@DBRef
+	private Formulario formulario;
 	
-	private String codFormulario;
-	
-	private LocalDateTime Fecha;
+	private LocalDateTime fecha;
 	
 	private HashMap<String, String> respuesta;
 	

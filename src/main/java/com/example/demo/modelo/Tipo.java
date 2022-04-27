@@ -20,11 +20,13 @@ import lombok.experimental.SuperBuilder;
 @Data
 
 
-public abstract class Tipo implements Serializable{
-	
-	@Id
+public class Tipo implements Serializable{
+
+	@EqualsAndHashCode.Include
 	private String id;
 	
 	private String nombreTipo;
+
+	private String pregunta;
 
 }
