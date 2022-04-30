@@ -1,21 +1,24 @@
 package com.example.demo.modelo;
 
-import lombok.*;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Document
-public class Formulario implements Serializable {
+public class Estadistica {
 
     @Id
     @EqualsAndHashCode.Include
@@ -24,8 +27,16 @@ public class Formulario implements Serializable {
     @Indexed
     private String nombre;
 
-    private Boolean privado;
+    private String titulo;
 
-    private HashMap<String, Tipo> campos;
+    private boolean privada;
+
+    private String descripcion;
+
+    private Set<Caso> casos;
+
+    private Integer limiteNumerico;
+
+    private LocalDateTime fechaLimite;
 
 }

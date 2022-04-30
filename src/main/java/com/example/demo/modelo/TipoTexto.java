@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+
 @Data
 @SuperBuilder
 @AllArgsConstructor
@@ -15,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 
 
-public class TipoTexto extends Tipo{
+public class TipoTexto extends Tipo implements Serializable {
 
-	private Long limiteDeLetras;
+    private Long limiteDeLetras;
 }
