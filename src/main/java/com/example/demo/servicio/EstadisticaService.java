@@ -3,10 +3,12 @@ package com.example.demo.servicio;
 import com.example.demo.modelo.Estadistica;
 import com.example.demo.repositorio.EstadisticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EstadisticaService implements IEstadisticaService{
 
     @Autowired
