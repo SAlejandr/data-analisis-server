@@ -20,6 +20,16 @@ public class FormularioService implements  IFormularioService{
     }
 
     @Override
+    public List<Formulario> listarFormulariosPrivados() {
+        return repository.findByPrivado(true);
+    }
+
+    @Override
+    public List<Formulario> listarFormulariosPublicos() {
+        return repository.findByPrivado(false);
+    }
+
+    @Override
     public void guardarFormulario(Formulario formulario) {
 
         repository.save(formulario);

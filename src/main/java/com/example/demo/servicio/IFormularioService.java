@@ -8,6 +8,9 @@ import java.util.Optional;
 public interface IFormularioService {
 
     public List<Formulario> listarFormularios();
+    public List<Formulario> listarFormulariosPrivados();
+
+    public List<Formulario> listarFormulariosPublicos();
 
     public void guardarFormulario(Formulario formulario);
 
