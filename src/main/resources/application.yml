@@ -3,9 +3,5 @@ spring:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   data:
     mongodb:
-      authentication-database: admin
-      database: DataAnalisis
-      host: localhost
-      password: contrasena
-      port: 21017
-      username: usuario
+      uri: mongodb+srv://usuario:contrasena@mycluster.1op4x.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+

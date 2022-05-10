@@ -48,11 +48,11 @@ public class EstadisticaController {
         return respuesta;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get/buscar")
     public List<Estadistica> listarPorTitulo(@RequestParam String titulo){
         return service.listarPorTitulo(titulo);
     }
-    @GetMapping("/get")
+    @GetMapping("/get/busqueda")
     public List<Estadistica> listarPorTituloYPrivacidad(@RequestParam String titulo, @RequestParam boolean privado){
         return service.listarPorTituloYPrivacidad(titulo,privado);
     }

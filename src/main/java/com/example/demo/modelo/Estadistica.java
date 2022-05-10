@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
@@ -30,6 +31,9 @@ public class Estadistica {
     private String titulo;
 
     private boolean privada;
+
+    @DBRef
+    private Formulario formulario;
 
     private String descripcion;
 
