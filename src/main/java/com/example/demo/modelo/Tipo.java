@@ -23,8 +23,6 @@ import lombok.experimental.SuperBuilder;
 public class Tipo implements Serializable {
 
     @EqualsAndHashCode.Include
-    private String id;
-
     private String nombreTipo;
 
     private String pregunta;

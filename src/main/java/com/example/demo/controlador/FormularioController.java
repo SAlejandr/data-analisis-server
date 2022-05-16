@@ -12,12 +12,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/forms")
+@CrossOrigin("*")
 public class FormularioController {
 
     @Autowired
     private IFormularioService servicio;
 
-    @GetMapping("/get/")
+    @GetMapping("/get")
     public ResponseEntity<Formulario> buscarPorNombre(@RequestParam String nombre){
 
         ResponseEntity<Formulario> respuesta;

@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -39,8 +40,6 @@ public class Estadistica {
 
     private Set<Caso> casos;
 
-    private Integer limiteNumerico;
-
-    private LocalDateTime fechaLimite;
+    private LocalDate fechaLimite;
 
 }
