@@ -27,4 +27,6 @@ public class Tipo implements Serializable {
 
     private String pregunta;
 
+    private String discriminador;
+
 }

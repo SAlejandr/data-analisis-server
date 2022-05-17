@@ -1,6 +1,7 @@
 package com.example.demo.controlador;
 
 import com.example.demo.modelo.Formulario;
+import com.example.demo.modelo.Tipo;
 import com.example.demo.servicio.IFormularioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,13 @@ public class FormularioController {
 
         return servicio.listarFormulariosPublicos();
     }
+
+    @GetMapping("/get/campos/{form}")
+    public List<Tipo> listarCampos(@PathVariable String form){
+
+        return (List<Tipo>) servicio.buscarPorNombre(form).get().getCampos().values();
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Formulario> annadirFormulario(@RequestBody Formulario formulario){
 
@@ -97,6 +105,7 @@ public class FormularioController {
 
         return respuesta;
     }
+
 
 
 }

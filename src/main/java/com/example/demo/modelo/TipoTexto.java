@@ -12,12 +12,15 @@ import java.io.Serializable;
 @Data
 @SuperBuilder
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 
 
 public class TipoTexto extends Tipo implements Serializable {
+
+    public TipoTexto() {
+        this.setDiscriminador("texto");
+    }
 
     private Long limiteDeLetras;
 }

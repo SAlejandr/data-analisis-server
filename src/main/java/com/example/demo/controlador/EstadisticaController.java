@@ -118,8 +118,8 @@ public class EstadisticaController {
         return respuesta;
 
     }
-    @PutMapping("/upd")
-    public ResponseEntity<Estadistica> modificarFomrEstadistica(@RequestParam String formulario, @RequestParam String estadistica){
+    @PutMapping("/upd/form")
+    public ResponseEntity<Estadistica> modificarFomrEstadistica(@RequestParam("formulario") String formulario, @RequestParam() String estadistica){
 
         ResponseEntity<Estadistica> respuesta;
 
