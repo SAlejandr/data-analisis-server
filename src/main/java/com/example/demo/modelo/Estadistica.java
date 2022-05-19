@@ -1,17 +1,14 @@
 package com.example.demo.modelo;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -38,7 +35,7 @@ public class Estadistica {
 
     private String descripcion;
 
-    private Set<Caso> casos;
+    private Set<Caso> casos = new HashSet<>();
 
     private LocalDate fechaLimite;
 

@@ -5,6 +5,7 @@ import com.example.demo.modelo.Estadistica;
 import com.example.demo.modelo.Formulario;
 import com.example.demo.servicio.IEstadisticaService;
 import com.example.demo.servicio.IFormularioService;
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -119,7 +120,7 @@ public class EstadisticaController {
 
     }
     @PutMapping("/upd/form")
-    public ResponseEntity<Estadistica> modificarFomrEstadistica(@RequestParam("formulario") String formulario, @RequestParam() String estadistica){
+    public ResponseEntity<Estadistica> modificarFomrEstadistica(@RequestParam("formulario") String formulario, @RequestParam("estadistica") String estadistica){
 
         ResponseEntity<Estadistica> respuesta;
 
@@ -131,7 +132,10 @@ public class EstadisticaController {
 
             stat.setFormulario(form);
 
-            stat.getCasos().clear();
+            if(stat.getCasos() != null)
+                stat.getCasos().clear();
+            else
+                stat.setCasos(Sets.newHashSet());
 
             service.guardar(stat);
             respuesta = new ResponseEntity<>(HttpStatus.ACCEPTED);

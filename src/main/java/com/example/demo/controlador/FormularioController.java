@@ -3,6 +3,7 @@ package com.example.demo.controlador;
 import com.example.demo.modelo.Formulario;
 import com.example.demo.modelo.Tipo;
 import com.example.demo.servicio.IFormularioService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class FormularioController {
     @GetMapping("/get/campos/{form}")
     public List<Tipo> listarCampos(@PathVariable String form){
 
-        return (List<Tipo>) servicio.buscarPorNombre(form).get().getCampos().values();
+        return Lists.newArrayList(servicio.buscarPorNombre(form).get().getCampos().values());
     }
 
     @PostMapping("/add")
