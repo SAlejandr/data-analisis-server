@@ -5,12 +5,14 @@ import com.example.demo.modelo.Estadistica;
 import com.example.demo.modelo.Formulario;
 import com.example.demo.servicio.IEstadisticaService;
 import com.example.demo.servicio.IFormularioService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,26 @@ public class EstadisticaController {
     public List<Estadistica> listarTodos(){
 
         return service.listarEstadisticas();
+    }
+    @GetMapping("/get/js/all")
+    public List<EstadisticaDTO> listarDTOTodos(){
+
+        ArrayList<EstadisticaDTO> lista = Lists.newArrayList();
+
+        ArrayList<Estadistica> estadisticas = (ArrayList<Estadistica>) service.listarEstadisticas();
+
+        estadisticas.stream().forEach(stat ->{
+            EstadisticaDTO dto = EstadisticaDTO.builder()
+                    .nombre(stat.getNombre())
+                    .descripcion(stat.getDescripcion())
+                    .privada(stat.isPrivada())
+                    .titulo(stat.getTitulo())
+                    .fechaLimite(stat.getFechaLimite())
+                    .build();
+            lista.add(dto);
+        });
+
+        return lista;
     }
 
 

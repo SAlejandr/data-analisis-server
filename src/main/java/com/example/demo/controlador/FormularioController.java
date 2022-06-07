@@ -62,11 +62,15 @@ public class FormularioController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Formulario> annadirFormulario(@RequestBody Formulario formulario){
+    public ResponseEntity<Formulario> annadirFormulario(@RequestParam String nombre, @RequestParam Boolean privado){
 
         ResponseEntity<Formulario> respuesta;
 
-        if(!servicio.buscarPorNombre(formulario.getNombre()).isPresent()){
+        if(!servicio.buscarPorNombre(nombre).isPresent()){
+            Formulario formulario = Formulario.builder().
+                    nombre(nombre).
+                    privado(privado).
+                    build();
             servicio.guardarFormulario(formulario);
             respuesta = new ResponseEntity<>(HttpStatus.CREATED);
         }else{
@@ -106,7 +110,5 @@ public class FormularioController {
 
         return respuesta;
     }
-
-
 
 }
