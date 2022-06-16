@@ -1,10 +1,9 @@
 package com.example.demo.controlador;
 
-import com.example.demo.modelo.Caso;
-import com.example.demo.modelo.Estadistica;
-import com.example.demo.modelo.Tipo;
+import com.example.demo.modelo.*;
 import com.example.demo.servicio.IEstadisticaService;
 import com.example.demo.servicio.IFormularioService;
+import com.example.demo.servicio.IResultadosService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,10 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/encuesta")
@@ -25,6 +21,8 @@ public class EncuestaController {
     private IEstadisticaService estadisticaService;
     @Autowired
     private IFormularioService formularioService;
+    @Autowired
+    private IResultadosService resultadosService;
 
 
     @PostMapping("/{estadistica}/save")
@@ -43,7 +41,7 @@ public class EncuestaController {
                     respuesta(datos).
                     build();
 
-            if(e.getFechaLimite() != null && caso.getFecha().isAfter(LocalDateTime.from(e.getFechaLimite())) ){
+            if(e.getFechaLimite() != null ){
                 Set<Caso> set = e.getCasos();
 
                 set.add(caso);
@@ -75,5 +73,65 @@ public class EncuestaController {
             return Lists.newArrayList();
 
     }
+
+    @GetMapping("/getResult/{nombreStat}")
+    public ResponseEntity<Resultado> darResultado(@PathVariable String nombreStat){
+
+        Optional<Estadistica> estadistica = estadisticaService.buscarPorNombre(nombreStat);
+
+        ResponseEntity<Resultado> respueta;
+
+        if(estadistica.isPresent()){
+            Resultado resultado = resultadosService.crearResultado(estadistica.get());
+            respueta = new ResponseEntity<>( resultado, HttpStatus.OK);
+        }else{
+            respueta = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return respueta;
+    }
+
+    @GetMapping("/getResult/{nombreStat}/campos")
+    public List<Muestra> getMuestras(@PathVariable String nombreStat){
+
+        List<Muestra> muestras = Lists.newArrayList();
+
+        Optional<Estadistica> estadistica = estadisticaService.buscarPorNombre(nombreStat);
+        if(estadistica.isPresent()) {
+            Resultado resultado = resultadosService.crearResultado(estadistica.get());
+            muestras = resultado.getMuestras();
+        }
+
+        return muestras;
+    }
+    @GetMapping("/getResult/{nombreStat}/{camp}/keys")
+    public List<String> getNomVal(@PathVariable String nombreStat, @PathVariable String camp){
+
+        List<String> muestras = Lists.newArrayList();
+
+        Optional<Estadistica> estadistica = estadisticaService.buscarPorNombre(nombreStat);
+        if(estadistica.isPresent()) {
+            Resultado resultado = resultadosService.crearResultado(estadistica.get());
+            Muestra m = Muestra.builder().nombre(camp).build();
+            resultado.getMuestras().get(resultado.getMuestras().indexOf(m)).getSucesos().keySet().stream().forEach(muestras::add);
+        }
+
+        return muestras;
+    }
+    @GetMapping("/getResult/{nombreStat}/{camp}/vals")
+    public List<Long> getContVal(@PathVariable String nombreStat, @PathVariable String camp){
+
+        List<Long> muestras = Lists.newArrayList();
+
+        Optional<Estadistica> estadistica = estadisticaService.buscarPorNombre(nombreStat);
+        if(estadistica.isPresent()) {
+            Resultado resultado = resultadosService.crearResultado(estadistica.get());
+            Muestra m = Muestra.builder().nombre(camp).build();
+            resultado.getMuestras().get(resultado.getMuestras().indexOf(m)).getSucesos().values().stream().forEach(muestras::add);
+        }
+
+        return muestras;
+    }
+
 
 }

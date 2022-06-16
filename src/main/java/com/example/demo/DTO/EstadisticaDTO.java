@@ -21,6 +21,8 @@ public class EstadisticaDTO {
 
     private boolean privada;
 
+    private Long casos = 0L;
+
     private String descripcion;
 
     private LocalDate fechaLimite;
