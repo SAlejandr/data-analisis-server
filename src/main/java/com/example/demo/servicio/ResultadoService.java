@@ -4,10 +4,13 @@ import com.example.demo.modelo.Estadistica;
 import com.example.demo.modelo.Formulario;
 import com.example.demo.modelo.Muestra;
 import com.example.demo.modelo.Resultado;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Service
@@ -28,7 +31,7 @@ public class ResultadoService implements IResultadosService {
             Formulario form = caso.getFormulario();
             //Doy el resultado de cada campo
             form.getCampos().keySet().stream().forEach( key -> {
-                Muestra muestra = Muestra.builder().nombre(key).tipo(form.getCampos().get(key).getDiscriminador()).build();
+                Muestra muestra = Muestra.builder().nombre(key).tipo(form.getCampos().get(key).getDiscriminador()).sucesos(Maps.newTreeMap()).build();
 
                 //compruebo que exista la muestra del capo, y si no, la creo
                 if(muestras.contains(muestra)){
@@ -40,13 +43,13 @@ public class ResultadoService implements IResultadosService {
                         muestra.getSucesos().put(caso.getRespuesta().get(clave) ,muestra.getSucesos().get(clave)+1);
                     }else{//Suceso no exsite, se crea
                         String clave= form.getCampos().get(key).getNombreTipo();
-                        muestra.getSucesos().put(caso.getRespuesta().get(clave) , Long.valueOf(1));
+                        muestra.getSucesos().put(caso.getRespuesta().get(clave) , 1L);
                     }
 
                 }else{ //Se crea la muestra
                     muestras.add(muestra);
                     String clave= form.getCampos().get(key).getNombreTipo();
-                    muestra.getSucesos().put(caso.getRespuesta().get(clave) , Long.valueOf(1));
+                    muestra.getSucesos().put(caso.getRespuesta().get(clave) , 1L);
                 }
                 //Se añade la muestra
                 muestras.add(muestra);
@@ -56,7 +59,11 @@ public class ResultadoService implements IResultadosService {
 
         //Una vez se han recorrido todos los casos, se añaden las muestras al resultado
 
-        resultado.setMuestras(muestras);
+        ArrayList<Muestra> copia = Lists.newArrayList();
+
+        muestras.stream().forEach(copia::add);
+
+        resultado.setMuestras(copia);
 
         return resultado;
     }

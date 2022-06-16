@@ -83,6 +83,7 @@ public class EstadisticaController {
                     .nombre(stat.getNombre())
                     .descripcion(stat.getDescripcion())
                     .privada(stat.isPrivada())
+                    .casos(Long.valueOf(stat.getCasos() == null ? 0 : stat.getCasos().size()))
                     .titulo(stat.getTitulo())
                     .fechaLimite(stat.getFechaLimite())
                     .build();

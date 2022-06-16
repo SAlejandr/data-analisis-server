@@ -1,6 +1,7 @@
 package com.example.demo.modelo;
 
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Data
@@ -22,6 +24,6 @@ public class Resultado implements Serializable {
     private LocalDate fecha;
     private Long cantidad;
 
-    private Set<Muestra> muestras = Sets.newHashSet();
+    private ArrayList<Muestra> muestras = Lists.newArrayList();
 
 }

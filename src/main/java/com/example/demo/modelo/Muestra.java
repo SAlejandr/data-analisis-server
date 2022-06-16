@@ -1,5 +1,6 @@
 package com.example.demo.modelo;
 
+import com.google.common.collect.Maps;
 import lombok.*;
 
 import java.io.Serializable;
@@ -18,5 +19,5 @@ public class Muestra implements Serializable {
 
     private String tipo;
 
-    private TreeMap<String, Long> sucesos;
+    private TreeMap<String, Long> sucesos = Maps.newTreeMap();
 }
